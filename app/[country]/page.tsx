@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   const countries = await fetch('https://restcountries.com/v2/all').then((res) => res.json())
 
   return countries.map((country: any) => ({
-    country: encodeURIComponent(country.name.toLowerCase()),
+    country: encodeURIComponent(country.name),
   }))
 }
 
