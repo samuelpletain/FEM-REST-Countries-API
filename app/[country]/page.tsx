@@ -1,5 +1,6 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -7,8 +8,19 @@ export async function generateStaticParams() {
   const countries = await fetch('https://restcountries.com/v2/all').then((res) => res.json())
 
   return countries.map((country: any) => ({
-    country: country.name,
+    country: encodeURIComponent(country.name.toLowerCase()),
   }))
+}
+
+export async function generateMetadata(
+  { params }: any,
+): Promise<Metadata> {
+  // read route params
+  const country = decodeURIComponent(params.country)
+  return {
+    title: `${country} | Where in the world?`,
+    description: `Information about ${country}`,
+  }
 }
 
 async function getData(country: string) {
@@ -34,7 +46,6 @@ async function getData(country: string) {
     chosenContry.borders.forEach((border: string) => {
       data.forEach((obj: any) => {
         if (obj.alpha3Code === border) {
-          console.log(obj.name)
           borders.push(obj.name)
         }
       })
@@ -67,7 +78,7 @@ export default async function Page({ params }: { params: { country: string } }) 
       data ?
         <>
           <div className="md:grid md:grid-cols-2 md:gap-20">
-            <Image src={data.flag} height="0" width="0" className="w-full mb-8 aspect-[3/2] object-cover" alt="" />
+            <Image src={data.flag} height="0" width="0" className="w-full mb-8 aspect-[3/2] object-cover" alt={`${data.name}'s flag`} />
             <div>
               <h2 className="text-2xl font-extrabold mb-4">{data.name}</h2>
               <div className="lg:grid lg:grid-cols-2 gap-8">

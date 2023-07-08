@@ -4,8 +4,8 @@ import Link from "next/link";
 export default function Card(props: any) {
   return (
     <div className={props.className}>
-      <Link href={`/${props.countryName}`}>
-        <Image src={props.countryFlag} alt="" width="0" height="0" className="w-full rounded-t-md aspect-[3/2] object-cover" />
+      <Link href={`/${encodeURIComponent(props.countryName.toLowerCase())}`}>
+        <Image src={props.countryFlag} alt={`${props.countryName}'s flag`} width="0" height="0" className="w-full rounded-t-md aspect-[3/2] object-cover" />
         <div className="p-8 bg-primary dark:bg-secondary rounded-b-md text-secondary-900 dark:text-primary">
           <h2 className="font-bold text-lg mb-4">{props.countryName}</h2>
           {Object.keys(props.content).map((key, idx) => {
