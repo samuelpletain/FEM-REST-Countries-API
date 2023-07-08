@@ -58,7 +58,6 @@ async function getData(country: string) {
 
 export default async function Page({ params }: { params: { country: string } }) {
   const data = await getData(params.country)
-  console.log(data)
   return (<main className="min-h-screen bg-primary-400 dark:bg-secondary-400 text-secondary-900 dark:text-primary px-6 pt-8 pb-16 drop">
     <Link href="/" className="px-8 py-2 inline-block rounded-sm mb-12 bg-primary dark:bg-secondary drop-shadow">
       <FontAwesomeIcon className="pr-2" icon={faArrowLeft} />
