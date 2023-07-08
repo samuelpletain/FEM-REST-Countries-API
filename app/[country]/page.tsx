@@ -58,6 +58,7 @@ async function getData(country: string) {
 
 export default async function Page({ params }: { params: { country: string } }) {
   const data = await getData(params.country)
+  console.log(data)
   return (<main className="min-h-screen bg-primary-400 dark:bg-secondary-400 text-secondary-900 dark:text-primary px-6 pt-8 pb-16 drop">
     <Link href="/" className="px-8 py-2 inline-block rounded-sm mb-12 bg-primary dark:bg-secondary drop-shadow">
       <FontAwesomeIcon className="pr-2" icon={faArrowLeft} />
@@ -76,15 +77,23 @@ export default async function Page({ params }: { params: { country: string } }) 
                   <p className="mb-2"><em className="font-semibold not-italic">Population:</em> {new Intl.NumberFormat('en-US').format(data.population)}</p>
                   <p className="mb-2"><em className="font-semibold not-italic">Region:</em> {data.region}</p>
                   <p className="mb-2"><em className="font-semibold not-italic">Sub Region:</em> {data.subregion}</p>
-                  <p className="mb-2 pb-8"><em className="font-semibold not-italic">Capital:</em> {data.capital}</p>
+                  {
+                    data.capital ?
+                      <p className="mb-2 pb-8"><em className="font-semibold not-italic">Capital:</em> {data.capital}</p>
+                      : null
+                  }
                 </div>
                 <div>
                   <p className="mb-2"><em className="font-semibold not-italic">Top Level Domain:</em> {data.topLevelDomain}</p>
-                  <p className="mb-2"><em className="font-semibold not-italic">Currencies:</em> {
-                    Object.keys(data.currencies).map((currency: any, idx: number) => {
-                      return (idx + 1 === Object.keys(data.currencies).length ? data.currencies[currency].name : `${data.currencies[currency].name}, `)
-                    })
-                  }</p>
+                  {
+                    data.currencies ?
+                      <p className="mb-2"><em className="font-semibold not-italic">Currencies:</em> {
+                        Object.keys(data.currencies).map((currency: any, idx: number) => {
+                          return (idx + 1 === Object.keys(data.currencies).length ? data.currencies[currency].name : `${data.currencies[currency].name}, `)
+                        })
+                      }</p>
+                      : null
+                  }
                   <p className="mb-2 pb-8"><em className="font-semibold not-italic">Languages:</em> {
                     data.languages.map((language: any, idx: number) => {
                       if (idx + 1 !== data.languages.length) {
