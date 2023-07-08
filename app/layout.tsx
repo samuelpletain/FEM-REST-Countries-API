@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import Button from './components/Button'
 import './globals.css'
@@ -7,11 +8,6 @@ const nunito = Nunito_Sans({
   subsets: ['latin'],
   weight: ['300', '600', '800']
 })
-
-export const metadata = {
-  title: 'Where in the world?',
-  description: 'REST Countries API with color theme switcher',
-}
 
 export default function RootLayout({
   children,

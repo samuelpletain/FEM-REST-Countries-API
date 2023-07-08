@@ -3,6 +3,11 @@ import Card from './components/Card'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Listing from './components/Listing'
 
+export const metadata = {
+  title: 'Where in the world?',
+  description: 'REST Countries API with color theme switcher',
+}
+
 async function getData() {
   const res = await fetch('https://restcountries.com/v2/all')
   // The return value is *not* serialized
