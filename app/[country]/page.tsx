@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   const countries = await fetch('https://restcountries.com/v2/all').then((res) => res.json())
 
   return countries.map((country: any) => ({
-    country: encodeURIComponent(country.name),
+    country: country.name,
   }))
 }
 
@@ -46,6 +46,7 @@ async function getData(country: string) {
     chosenContry.borders.forEach((border: string) => {
       data.forEach((obj: any) => {
         if (obj.alpha3Code === border) {
+          console.log(obj.name)
           borders.push(obj.name)
         }
       })
